@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Score Calculator</title>
+  <style>
+  body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      width: 350px;
+      background: whitesmoke;
+    }
+form {
+  text-align: center;
+  width: 80%;
+  height: auto;
+  position: relative;
+  border-radius: 20px;
+  padding: 5px;
+  box-sizing: border-box;
+  background: #ecf0f8;
+  box-shadow: outset14px 14px 20px skyblue, -14px -14px 20px white;
+cbced1
+  
+    }
+
+
+    label{
+      border-radius: 3px;
+      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+      background: aliceblue;
+    }
+      
+    
+
+
+h2{
+  font-size: 30px;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+button {
+  color: white;
+  width: 48%;
+  background: #1DA1F2;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+  transition: 0.5s;
+}
+
+
+input{
+  align-content: center;
+  text-align: right;
+  padding: 5px;
+  margin:5px;
+  font-size: 18px;
+      outline: none;
+      border-style: none;
+      box-sizing: border-box;
+      width: 60%;
+      background: #ecf0f3;
+      border-radius: 10px;
+      box-shadow: inset 10px 10px 10px skyblue, inset -6px -6px 6px white;
+}
+
+
+  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+
+cbced1
+  
+  </style>
+</head>
+<body>
+
+  <form id="scoreCalculatorForm">
+    <h2>IPAM GP CAL</h2>
+    <label for="subject1">Subject 1:</label>
+    <input type="number" id="subject1" class="score-input" required max="100" placeholder="000"><br>
+
+    <label for="subject2">Subject 2:</label>
+    <input type="number" id="subject2" class="score-input" required max="100" placeholder="000"><br>
+
+    <label for="subject3">Subject 3:</label>
+    <input type="number" id="subject3" class="score-input" required max="100" placeholder="000"><br>
+
+    <label for="subject4">Subject 4:</label>
+    <input type="number" id="subject4" class="score-input" required max="100" placeholder="000"><br>
+
+    <label for="subject5">Subject 5:</label>
+    <input type="number" id="subject5" class="score-input" required max="100" placeholder="000"><br>
+
+    <label for="subject6">Subject 6:</label>
+    <input type="number" id="subject6" class="score-input" required max="100" placeholder="000"><br>
+    
+    <button type="button" onclick="calculateResult()" id="a">Calculate</button>
+    <button type="button" onclick="clearForm()" id="a">Clear</button>
+    
+  </form>
+
+  <script>
+  var color =    document.documentElement.style ;
+ 
+    function light() {
+    color.setProperty('--bg1', '#c2c2c4');
+    color.setProperty('--bg2', '#e2e2e4');
+    color.setProperty('--boxShadow', '#a1a1a3');
+    color.setProperty('--Shadow1', '#848486');
+    color.setProperty('--Shadow2', '#fcfcfe');
+    color.setProperty('--S1forI', '#ececee');
+    color.setProperty('--S2forI', '#8a8b8e');
+ 
+    document.getElementById('lt').style.display="none";
+    document.getElementById('drk').style.display="block";
+    }
+  
+    function calculateResult() {
+      const subjects = ['subject1', 'subject2', 'subject3', 'subject4', 'subject5', 'subject6'];
+      let totalScore = 0;
+
+      for (const subject of subjects) {
+        const inputElement = document.getElementById(subject);
+        const score = parseFloat(inputElement.value) || 0;
+
+        if (score > 100) {
+          console.error(`Error: Input for ${subject} exceeds maximum limit (100)`);
+          return;
+        }
+
+        totalScore += score;
+
+        // Apply color based on score
+        if (score >= 80) {
+          inputElement.style.backgroundColor = 'lightgreen';
+        } else if (score >= 60) {
+          inputElement.style.backgroundColor = 'yellow';
+        } else {
+          inputElement.style.backgroundColor = 'salmon';
+        }
+      }
+
+      const percentage = (totalScore / (subjects.length * 100)) * 100;
+      const gradePoint = calculateGradePoint(percentage);
+
+      const resultMessage = `Total Score: ${totalScore}\nPercentage: ${percentage.toFixed(2)}%\nGrade Point: ${gradePoint}\n${(percentage >= 40) ? "Result: Pass" : "Result: Fail"}`;
+      
+      alert(resultMessage);
+    }
+
+    function calculateGradePoint(percentage) {
+      if (percentage >= 90) {
+        return 'A+';
+      } else if (percentage >= 80) {
+        return 'A';
+      } else if (percentage >= 70) {
+        return 'B';
+      } else if (percentage >= 60) {
+        return 'C';
+      } else if (percentage >= 50) {
+        return 'D';
+      } else {
+        return 'F';
+      }
+    }
+
+    function clearForm() {
+      const inputs = document.querySelectorAll('.score-input');
+
+      for (const input of inputs) {
+        input.value = '';
+        input.style.backgroundColor = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
